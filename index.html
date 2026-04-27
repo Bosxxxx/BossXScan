@@ -13,13 +13,13 @@
         }
 
         body {
-            background-color: #f5f7fa;
-            color: #333;
+            background-color: #0d1117;
+            color: #e6edf3;
         }
 
         /* Navbar */
         .navbar {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
             padding: 12px 40px;
             display: flex;
             align-items: center;
@@ -27,7 +27,8 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            border-bottom: 1px solid #30363d;
         }
 
         .navbar-left {
@@ -48,12 +49,17 @@
         .logo-icon {
             width: 32px;
             height: 32px;
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            overflow: hidden;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .logo span {
@@ -66,7 +72,7 @@
         }
 
         .nav-links a {
-            color: #ccc;
+            color: #8b949e;
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
@@ -98,24 +104,29 @@
         }
 
         .navbar-right a {
-            color: #ccc;
+            color: #8b949e;
             text-decoration: none;
             font-size: 13px;
         }
 
+        .navbar-right a:hover {
+            color: #fff;
+        }
+
         .btn-connect {
-            background: #ff6b6b;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
             color: #fff !important;
             padding: 8px 20px;
             border-radius: 6px;
             font-weight: 600;
             border: none;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
 
         .btn-connect:hover {
-            background: #ee5a24;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
         }
 
         /* Search Bar */
@@ -128,16 +139,16 @@
         .search-bar {
             display: flex;
             align-items: center;
-            background: #fff;
+            background: #161b22;
             border-radius: 12px;
             padding: 0 20px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
-            border: 1px solid #e8ecf1;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+            border: 1px solid #30363d;
             height: 56px;
         }
 
         .search-bar svg {
-            color: #aaa;
+            color: #6e7681;
             margin-right: 12px;
         }
 
@@ -146,21 +157,26 @@
             border: none;
             outline: none;
             font-size: 15px;
-            color: #333;
+            color: #e6edf3;
             background: transparent;
         }
 
         .search-bar input::placeholder {
-            color: #aaa;
+            color: #6e7681;
         }
 
         .search-bar .search-btn {
-            background: #f0f0f0;
+            background: #21262d;
             border: none;
             padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
-            color: #666;
+            color: #8b949e;
+            transition: background 0.3s;
+        }
+
+        .search-bar .search-btn:hover {
+            background: #30363d;
         }
 
         /* Trending */
@@ -175,7 +191,7 @@
         }
 
         .trending span {
-            color: #888;
+            color: #6e7681;
             font-size: 13px;
         }
 
@@ -183,27 +199,32 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            background: #fff;
+            background: #161b22;
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 12px;
-            color: #555;
+            color: #8b949e;
             text-decoration: none;
-            border: 1px solid #e8ecf1;
+            border: 1px solid #30363d;
             transition: all 0.3s;
         }
 
         .trending a:hover {
             border-color: #ff6b6b;
             color: #ff6b6b;
+            background: #21262d;
         }
 
         .trending .more-btn {
             background: none;
             border: none;
-            color: #888;
+            color: #6e7681;
             cursor: pointer;
             font-size: 12px;
+        }
+
+        .trending .more-btn:hover {
+            color: #ff6b6b;
         }
 
         /* Main Content */
@@ -222,20 +243,21 @@
         }
 
         .stat-card {
-            background: #fff;
+            background: #161b22;
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border: 1px solid #e8ecf1;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #30363d;
             display: flex;
             align-items: center;
             gap: 16px;
-            transition: transform 0.2s;
+            transition: transform 0.2s, border-color 0.3s;
         }
 
         .stat-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-color: #ff6b6b;
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.2);
         }
 
         .stat-icon {
@@ -248,14 +270,14 @@
             font-size: 20px;
         }
 
-        .stat-icon.blue { background: #e3f2fd; color: #1976d2; }
-        .stat-icon.green { background: #e8f5e9; color: #388e3c; }
-        .stat-icon.orange { background: #fff3e0; color: #f57c00; }
-        .stat-icon.purple { background: #f3e5f5; color: #7b1fa2; }
+        .stat-icon.blue { background: rgba(25, 118, 210, 0.15); color: #58a6ff; }
+        .stat-icon.green { background: rgba(56, 142, 60, 0.15); color: #3fb950; }
+        .stat-icon.orange { background: rgba(245, 124, 0, 0.15); color: #f0883e; }
+        .stat-icon.purple { background: rgba(123, 31, 162, 0.15); color: #a371f7; }
 
         .stat-info h4 {
             font-size: 13px;
-            color: #888;
+            color: #6e7681;
             font-weight: 500;
             margin-bottom: 4px;
         }
@@ -263,17 +285,17 @@
         .stat-info .value {
             font-size: 20px;
             font-weight: 700;
-            color: #1a1a2e;
+            color: #e6edf3;
         }
 
         .stat-info .change {
             font-size: 12px;
-            color: #388e3c;
+            color: #3fb950;
             margin-top: 2px;
         }
 
         .stat-info .change .label {
-            color: #aaa;
+            color: #6e7681;
             margin-right: 4px;
         }
 
@@ -286,11 +308,11 @@
         }
 
         .price-card {
-            background: #fff;
+            background: #161b22;
             border-radius: 12px;
             padding: 24px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border: 1px solid #e8ecf1;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #30363d;
         }
 
         .price-header {
@@ -309,24 +331,28 @@
         .bossx-logo {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            font-weight: 700;
-            font-size: 16px;
+            overflow: hidden;
+            background: #21262d;
+        }
+
+        .bossx-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .price-left h3 {
             font-size: 18px;
-            color: #1a1a2e;
+            color: #e6edf3;
         }
 
         .price-left .symbol {
             font-size: 14px;
-            color: #888;
+            color: #6e7681;
         }
 
         .price-value {
@@ -338,27 +364,16 @@
         .price-value .current {
             font-size: 28px;
             font-weight: 700;
-            color: #1a1a2e;
+            color: #e6edf3;
         }
 
         .price-value .change {
-            background: #e8f5e9;
-            color: #388e3c;
+            background: rgba(63, 185, 80, 0.15);
+            color: #3fb950;
             padding: 4px 10px;
             border-radius: 6px;
             font-size: 13px;
             font-weight: 600;
-        }
-
-        .price-chart {
-            height: 80px;
-            margin-top: 16px;
-            position: relative;
-        }
-
-        .price-chart canvas {
-            width: 100%;
-            height: 100%;
         }
 
         .market-info {
@@ -374,13 +389,13 @@
 
         .market-item .label {
             font-size: 12px;
-            color: #aaa;
+            color: #6e7681;
         }
 
         .market-item .value {
             font-size: 14px;
             font-weight: 600;
-            color: #333;
+            color: #e6edf3;
         }
 
         .supply-info {
@@ -391,26 +406,27 @@
         }
 
         .supply-item {
-            background: #f8f9fa;
+            background: #21262d;
             padding: 12px;
             border-radius: 8px;
+            border: 1px solid #30363d;
         }
 
         .supply-item .label {
             font-size: 11px;
-            color: #aaa;
+            color: #6e7681;
         }
 
         .supply-item .value {
             font-size: 15px;
             font-weight: 600;
-            color: #1a1a2e;
+            color: #e6edf3;
             margin-top: 4px;
         }
 
         /* Ad Banner */
         .ad-banner {
-            background: linear-gradient(135deg, #0d2818 0%, #1a4d2e 100%);
+            background: linear-gradient(135deg, #1a2e1a 0%, #0d2818 100%);
             border-radius: 12px;
             padding: 20px 30px;
             display: flex;
@@ -420,6 +436,7 @@
             margin-bottom: 20px;
             position: relative;
             overflow: hidden;
+            border: 1px solid #2d4a2d;
         }
 
         .ad-banner::before {
@@ -463,12 +480,12 @@
 
         .section-header h2 {
             font-size: 18px;
-            color: #1a1a2e;
+            color: #e6edf3;
             font-weight: 700;
         }
 
         .section-header .more-link {
-            color: #888;
+            color: #6e7681;
             text-decoration: none;
             font-size: 14px;
             display: flex;
@@ -489,29 +506,30 @@
         }
 
         .block-card {
-            background: #fff;
+            background: #161b22;
             border-radius: 12px;
             padding: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border: 1px solid #e8ecf1;
-            transition: transform 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border: 1px solid #30363d;
+            transition: transform 0.2s, border-color 0.3s;
         }
 
         .block-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-color: #ff6b6b;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
         }
 
         .block-number {
             font-size: 16px;
             font-weight: 700;
-            color: #1976d2;
+            color: #58a6ff;
             margin-bottom: 4px;
         }
 
         .block-time {
             font-size: 11px;
-            color: #aaa;
+            color: #6e7681;
             margin-bottom: 8px;
         }
 
@@ -523,11 +541,12 @@
         }
 
         .proposer-badge {
-            background: #f0f0f0;
+            background: #21262d;
             padding: 2px 8px;
             border-radius: 4px;
             font-size: 11px;
-            color: #555;
+            color: #8b949e;
+            border: 1px solid #30363d;
         }
 
         .block-stats {
@@ -541,7 +560,7 @@
             align-items: center;
             gap: 6px;
             font-size: 12px;
-            color: #666;
+            color: #8b949e;
         }
 
         .block-stat .icon {
@@ -552,8 +571,8 @@
             font-weight: 600;
         }
 
-        .block-stat .value.orange { color: #f57c00; }
-        .block-stat .value.blue { color: #1976d2; }
+        .block-stat .value.orange { color: #f0883e; }
+        .block-stat .value.blue { color: #58a6ff; }
 
         /* Transactions Section */
         .transactions-section {
@@ -564,11 +583,11 @@
         }
 
         .tx-list {
-            background: #fff;
+            background: #161b22;
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border: 1px solid #e8ecf1;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #30363d;
         }
 
         .tx-item {
@@ -576,7 +595,7 @@
             grid-template-columns: 1fr 1.5fr 1fr;
             gap: 12px;
             padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid #30363d;
             font-size: 13px;
             align-items: center;
         }
@@ -586,13 +605,13 @@
         }
 
         .tx-hash {
-            color: #1976d2;
+            color: #58a6ff;
             font-weight: 600;
             font-size: 12px;
         }
 
         .tx-hash .time {
-            color: #aaa;
+            color: #6e7681;
             font-size: 11px;
             font-weight: 400;
             display: block;
@@ -601,7 +620,7 @@
 
         .tx-addresses {
             font-size: 11px;
-            color: #666;
+            color: #8b949e;
         }
 
         .tx-addresses .from,
@@ -610,7 +629,7 @@
         }
 
         .tx-addresses .label {
-            color: #aaa;
+            color: #6e7681;
             display: inline-block;
             width: 30px;
         }
@@ -621,26 +640,27 @@
 
         .tx-value .amount {
             font-weight: 600;
-            color: #333;
+            color: #e6edf3;
         }
 
         .tx-value .type {
             font-size: 11px;
-            background: #e3f2fd;
-            color: #1976d2;
+            background: rgba(25, 118, 210, 0.15);
+            color: #58a6ff;
             padding: 2px 8px;
             border-radius: 4px;
             display: inline-block;
             margin-top: 4px;
+            border: 1px solid rgba(88, 166, 255, 0.3);
         }
 
         /* Chart */
         .tx-chart {
-            background: #fff;
+            background: #161b22;
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border: 1px solid #e8ecf1;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #30363d;
         }
 
         .chart-header {
@@ -660,7 +680,7 @@
             align-items: center;
             gap: 6px;
             font-size: 12px;
-            color: #666;
+            color: #8b949e;
         }
 
         .legend-dot {
@@ -669,28 +689,16 @@
             border-radius: 50%;
         }
 
-        .legend-dot.blue { background: #1976d2; }
-        .legend-dot.red { background: #e53935; }
-        .legend-dot.green { background: #43a047; }
+        .legend-dot.blue { background: #58a6ff; }
+        .legend-dot.red { background: #f85149; }
+        .legend-dot.green { background: #3fb950; }
 
         .chart-area {
             height: 200px;
             position: relative;
-            border-left: 1px solid #e8ecf1;
-            border-bottom: 1px solid #e8ecf1;
+            border-left: 1px solid #30363d;
+            border-bottom: 1px solid #30363d;
             padding: 10px 0;
-        }
-
-        .chart-y-labels {
-            position: absolute;
-            left: -35px;
-            top: 0;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            font-size: 10px;
-            color: #aaa;
         }
 
         .chart-svg {
@@ -703,16 +711,16 @@
             justify-content: space-between;
             margin-top: 8px;
             font-size: 10px;
-            color: #aaa;
+            color: #6e7681;
         }
 
         /* TVL Section */
         .tvl-section {
-            background: #fff;
+            background: #161b22;
             border-radius: 12px;
             padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border: 1px solid #e8ecf1;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border: 1px solid #30363d;
         }
 
         .tvl-header {
@@ -724,7 +732,7 @@
 
         .tvl-header h3 {
             font-size: 16px;
-            color: #1a1a2e;
+            color: #e6edf3;
         }
 
         .tvl-header .active-tab {
@@ -734,14 +742,14 @@
         }
 
         .tvl-header .inactive-tab {
-            color: #aaa;
+            color: #6e7681;
             cursor: pointer;
         }
 
         .tvl-total {
             font-size: 24px;
             font-weight: 700;
-            color: #1a1a2e;
+            color: #e6edf3;
             margin-bottom: 20px;
         }
 
@@ -754,9 +762,9 @@
             grid-template-columns: 100px 2fr 1fr 1fr 1fr 1fr;
             gap: 12px;
             padding: 10px 0;
-            border-bottom: 2px solid #e8ecf1;
+            border-bottom: 2px solid #30363d;
             font-size: 12px;
-            color: #888;
+            color: #6e7681;
             font-weight: 600;
         }
 
@@ -765,30 +773,35 @@
             grid-template-columns: 100px 2fr 1fr 1fr 1fr 1fr;
             gap: 12px;
             padding: 12px 0;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid #30363d;
             font-size: 13px;
             align-items: center;
         }
 
+        .tvl-table-row:last-child {
+            border-bottom: none;
+        }
+
         .tvl-table-row .rank {
-            color: #888;
+            color: #6e7681;
         }
 
         .tvl-table-row .project {
             font-weight: 600;
-            color: #333;
+            color: #e6edf3;
         }
 
         .tvl-table-row .category {
-            color: #888;
+            color: #6e7681;
         }
 
         .tvl-table-row .value {
             font-weight: 600;
+            color: #e6edf3;
         }
 
-        .tvl-table-row .change-pos { color: #388e3c; }
-        .tvl-table-row .change-neg { color: #e53935; }
+        .tvl-table-row .change-pos { color: #3fb950; }
+        .tvl-table-row .change-neg { color: #f85149; }
 
         /* Bottom Bar */
         .bottom-info {
@@ -798,7 +811,7 @@
             display: flex;
             gap: 20px;
             font-size: 12px;
-            color: #888;
+            color: #6e7681;
         }
 
         .bottom-info span {
@@ -809,10 +822,11 @@
 
         /* Footer */
         footer {
-            background: #1a1a2e;
-            color: #888;
+            background: #161b22;
+            color: #6e7681;
             padding: 30px 40px;
             margin-top: 30px;
+            border-top: 1px solid #30363d;
         }
 
         .footer-content {
@@ -824,9 +838,13 @@
         }
 
         .footer-content a {
-            color: #aaa;
+            color: #8b949e;
             text-decoration: none;
             font-size: 13px;
+        }
+
+        .footer-content a:hover {
+            color: #ff6b6b;
         }
 
         /* Sub-stats */
@@ -842,16 +860,16 @@
             align-items: center;
             gap: 8px;
             font-size: 13px;
-            color: #666;
+            color: #8b949e;
         }
 
         .sub-stat .label {
-            color: #888;
+            color: #6e7681;
         }
 
         .sub-stat .value {
             font-weight: 600;
-            color: #333;
+            color: #e6edf3;
         }
 
         /* Responsive */
@@ -892,7 +910,9 @@
     <nav class="navbar">
         <div class="navbar-left">
             <div class="logo">
-                <div class="logo-icon">B</div>
+                <div class="logo-icon">
+                    <img src="https://i.ibb.co.com/F4mzz15x/logo.jpg" alt="BossX Logo">
+                </div>
                 BossX<span>SCAN</span>
             </div>
             <div class="nav-links">
@@ -1010,7 +1030,9 @@
                 <div class="price-card">
                     <div class="price-header">
                         <div class="price-left">
-                            <div class="bossx-logo">B</div>
+                            <div class="bossx-logo">
+                                <img src="https://i.ibb.co.com/F4mzz15x/logo.jpg" alt="BossX">
+                            </div>
                             <div>
                                 <h3>BossX</h3>
                                 <div class="symbol">$0.85</div>
@@ -1034,13 +1056,13 @@
 
                     <div style="margin-top: 16px;">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span style="font-size: 12px; color: #888;">Total Supply (17d)</span>
-                            <span style="font-size: 12px; color: #388e3c;">+0.27%/y</span>
+                            <span style="font-size: 12px; color: #6e7681;">Total Supply (17d)</span>
+                            <span style="font-size: 12px; color: #3fb950;">+0.27%/y</span>
                         </div>
-                        <div style="height: 40px; background: linear-gradient(180deg, #e3f2fd 0%, #fff 100%); border-radius: 4px; position: relative;">
+                        <div style="height: 40px; background: linear-gradient(180deg, rgba(25,118,210,0.1) 0%, transparent 100%); border-radius: 4px; position: relative; border: 1px solid #30363d;">
                             <svg width="100%" height="100%" viewBox="0 0 300 40">
-                                <polyline fill="none" stroke="#1976d2" stroke-width="2" points="0,30 30,28 60,26 90,25 120,22 150,20 180,18 210,15 240,12 270,10 300,8"/>
-                                <circle cx="300" cy="8" r="4" fill="#1976d2"/>
+                                <polyline fill="none" stroke="#58a6ff" stroke-width="2" points="0,30 30,28 60,26 90,25 120,22 150,20 180,18 210,15 240,12 270,10 300,8"/>
+                                <circle cx="300" cy="8" r="4" fill="#58a6ff"/>
                             </svg>
                         </div>
                     </div>
@@ -1061,7 +1083,7 @@
             <!-- Price Chart Card -->
             <div class="price-card">
                 <div style="margin-bottom: 16px;">
-                    <h3 style="font-size: 16px; color: #1a1a2e;">Transactions</h3>
+                    <h3 style="font-size: 16px; color: #e6edf3;">Transactions</h3>
                 </div>
                 <div class="chart-legend">
                     <div class="legend-item"><div class="legend-dot blue"></div>Total Transactions</div>
@@ -1071,30 +1093,30 @@
                 <div class="chart-area" style="margin-top: 16px;">
                     <svg class="chart-svg" viewBox="0 0 500 180">
                         <!-- Grid lines -->
-                        <line x1="0" y1="0" x2="500" y2="0" stroke="#f0f0f0" stroke-width="1"/>
-                        <line x1="0" y1="45" x2="500" y2="45" stroke="#f0f0f0" stroke-width="1"/>
-                        <line x1="0" y1="90" x2="500" y2="90" stroke="#f0f0f0" stroke-width="1"/>
-                        <line x1="0" y1="135" x2="500" y2="135" stroke="#f0f0f0" stroke-width="1"/>
-                        <line x1="0" y1="180" x2="500" y2="180" stroke="#e8ecf1" stroke-width="1"/>
+                        <line x1="0" y1="0" x2="500" y2="0" stroke="#30363d" stroke-width="1"/>
+                        <line x1="0" y1="45" x2="500" y2="45" stroke="#30363d" stroke-width="1"/>
+                        <line x1="0" y1="90" x2="500" y2="90" stroke="#30363d" stroke-width="1"/>
+                        <line x1="0" y1="135" x2="500" y2="135" stroke="#30363d" stroke-width="1"/>
+                        <line x1="0" y1="180" x2="500" y2="180" stroke="#30363d" stroke-width="1"/>
 
                         <!-- Y-axis labels -->
-                        <text x="-5" y="4" fill="#aaa" font-size="10" text-anchor="end">15m</text>
-                        <text x="-5" y="49" fill="#aaa" font-size="10" text-anchor="end">10m</text>
-                        <text x="-5" y="94" fill="#aaa" font-size="10" text-anchor="end">5m</text>
-                        <text x="-5" y="139" fill="#aaa" font-size="10" text-anchor="end">0</text>
+                        <text x="-5" y="4" fill="#6e7681" font-size="10" text-anchor="end">15m</text>
+                        <text x="-5" y="49" fill="#6e7681" font-size="10" text-anchor="end">10m</text>
+                        <text x="-5" y="94" fill="#6e7681" font-size="10" text-anchor="end">5m</text>
+                        <text x="-5" y="139" fill="#6e7681" font-size="10" text-anchor="end">0</text>
 
                         <!-- Total Transactions (blue) -->
-                        <polyline fill="none" stroke="#1976d2" stroke-width="2" opacity="0.8"
+                        <polyline fill="none" stroke="#58a6ff" stroke-width="2" opacity="0.8"
                             points="10,80 60,50 110,45 160,55 210,50 260,48 310,55 360,42 410,50 460,65"/>
-                        <polygon fill="#1976d2" opacity="0.05"
+                        <polygon fill="#58a6ff" opacity="0.08"
                             points="10,80 60,50 110,45 160,55 210,50 260,48 310,55 360,42 410,50 460,65 460,180 10,180"/>
 
                         <!-- BossX Transfers (red) -->
-                        <polyline fill="none" stroke="#e53935" stroke-width="1.5" opacity="0.6"
+                        <polyline fill="none" stroke="#f85149" stroke-width="1.5" opacity="0.6"
                             points="10,140 60,120 110,115 160,125 210,118 260,122 310,128 360,110 410,115 460,125"/>
 
                         <!-- USDT Transfers (green) -->
-                        <polyline fill="none" stroke="#43a047" stroke-width="1.5" opacity="0.6"
+                        <polyline fill="none" stroke="#3fb950" stroke-width="1.5" opacity="0.6"
                             points="10,155 60,145 110,140 160,148 210,142 260,145 310,150 360,138 410,142 460,150"/>
                     </svg>
                 </div>
@@ -1123,7 +1145,7 @@
                 <div class="block-proposer">
                     <span class="proposer-badge">Huobi_Wallet ›</span>
                 </div>
-                <div style="font-size: 12px; color: #666; margin-bottom: 8px;">396 Transactions</div>
+                <div style="font-size: 12px; color: #8b949e; margin-bottom: 8px;">396 Transactions</div>
                 <div class="block-stats">
                     <div class="block-stat">
                         <span class="icon">🟦</span>
@@ -1146,7 +1168,7 @@
                 <div class="block-proposer">
                     <span class="proposer-badge">Binance Staking ›</span>
                 </div>
-                <div style="font-size: 12px; color: #666; margin-bottom: 8px;">494 Transactions</div>
+                <div style="font-size: 12px; color: #8b949e; margin-bottom: 8px;">494 Transactions</div>
                 <div class="block-stats">
                     <div class="block-stat">
                         <span class="icon">🟦</span>
@@ -1169,7 +1191,7 @@
                 <div class="block-proposer">
                     <span class="proposer-badge">BlockAnalysis ›</span>
                 </div>
-                <div style="font-size: 12px; color: #666; margin-bottom: 8px;">455 Transactions</div>
+                <div style="font-size: 12px; color: #8b949e; margin-bottom: 8px;">455 Transactions</div>
                 <div class="block-stats">
                     <div class="block-stat">
                         <span class="icon">🟦</span>
@@ -1192,7 +1214,7 @@
                 <div class="block-proposer">
                     <span class="proposer-badge">Crypto Labs ›</span>
                 </div>
-                <div style="font-size: 12px; color: #666; margin-bottom: 8px;">461 Transactions</div>
+                <div style="font-size: 12px; color: #8b949e; margin-bottom: 8px;">461 Transactions</div>
                 <div class="block-stats">
                     <div class="block-stat">
                         <span class="icon">🟦</span>
@@ -1296,7 +1318,7 @@
 
             <div class="tx-chart">
                 <div class="chart-header">
-                    <h3 style="font-size: 14px; color: #1a1a2e;">Transactions</h3>
+                    <h3 style="font-size: 14px; color: #e6edf3;">Transactions</h3>
                     <div class="chart-legend">
                         <div class="legend-item"><div class="legend-dot blue"></div>Total Transactions</div>
                         <div class="legend-item"><div class="legend-dot red"></div>BossX Transfers</div>
@@ -1305,26 +1327,26 @@
                 </div>
                 <div class="chart-area">
                     <svg class="chart-svg" viewBox="0 0 500 180">
-                        <line x1="0" y1="0" x2="500" y2="0" stroke="#f0f0f0" stroke-width="1"/>
-                        <line x1="0" y1="45" x2="500" y2="45" stroke="#f0f0f0" stroke-width="1"/>
-                        <line x1="0" y1="90" x2="500" y2="90" stroke="#f0f0f0" stroke-width="1"/>
-                        <line x1="0" y1="135" x2="500" y2="135" stroke="#f0f0f0" stroke-width="1"/>
-                        <line x1="0" y1="180" x2="500" y2="180" stroke="#e8ecf1" stroke-width="1"/>
+                        <line x1="0" y1="0" x2="500" y2="0" stroke="#30363d" stroke-width="1"/>
+                        <line x1="0" y1="45" x2="500" y2="45" stroke="#30363d" stroke-width="1"/>
+                        <line x1="0" y1="90" x2="500" y2="90" stroke="#30363d" stroke-width="1"/>
+                        <line x1="0" y1="135" x2="500" y2="135" stroke="#30363d" stroke-width="1"/>
+                        <line x1="0" y1="180" x2="500" y2="180" stroke="#30363d" stroke-width="1"/>
 
-                        <text x="-5" y="4" fill="#aaa" font-size="10" text-anchor="end">15m</text>
-                        <text x="-5" y="49" fill="#aaa" font-size="10" text-anchor="end">10m</text>
-                        <text x="-5" y="94" fill="#aaa" font-size="10" text-anchor="end">5m</text>
-                        <text x="-5" y="139" fill="#aaa" font-size="10" text-anchor="end">0</text>
+                        <text x="-5" y="4" fill="#6e7681" font-size="10" text-anchor="end">15m</text>
+                        <text x="-5" y="49" fill="#6e7681" font-size="10" text-anchor="end">10m</text>
+                        <text x="-5" y="94" fill="#6e7681" font-size="10" text-anchor="end">5m</text>
+                        <text x="-5" y="139" fill="#6e7681" font-size="10" text-anchor="end">0</text>
 
-                        <polyline fill="none" stroke="#1976d2" stroke-width="2" opacity="0.8"
+                        <polyline fill="none" stroke="#58a6ff" stroke-width="2" opacity="0.8"
                             points="10,80 60,50 110,45 160,55 210,50 260,48 310,55 360,42 410,50 460,65"/>
-                        <polygon fill="#1976d2" opacity="0.05"
+                        <polygon fill="#58a6ff" opacity="0.08"
                             points="10,80 60,50 110,45 160,55 210,50 260,48 310,55 360,42 410,50 460,65 460,180 10,180"/>
 
-                        <polyline fill="none" stroke="#e53935" stroke-width="1.5" opacity="0.6"
+                        <polyline fill="none" stroke="#f85149" stroke-width="1.5" opacity="0.6"
                             points="10,140 60,120 110,115 160,125 210,118 260,122 310,128 360,110 410,115 460,125"/>
 
-                        <polyline fill="none" stroke="#43a047" stroke-width="1.5" opacity="0.6"
+                        <polyline fill="none" stroke="#3fb950" stroke-width="1.5" opacity="0.6"
                             points="10,155 60,145 110,140 160,148 210,142 260,145 310,150 360,138 410,142 460,150"/>
                     </svg>
                 </div>
