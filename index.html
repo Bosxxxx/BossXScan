@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BossXSCAN | BossX Blockchain Explorer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 12px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .logo span {
+            color: #ff6b6b;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #ff6b6b;
+            border-radius: 1px;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .navbar-right a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .btn-connect {
+            background: #ff6b6b;
+            color: #fff !important;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-connect:hover {
+            background: #ee5a24;
+        }
+
+        /* Search Bar */
+        .search-section {
+            max-width: 1200px;
+            margin: 30px auto 20px;
+            padding: 0 20px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border-radius: 12px;
+            padding: 0 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border: 1px solid #e8ecf1;
+            height: 56px;
+        }
+
+        .search-bar svg {
+            color: #aaa;
+            margin-right: 12px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            color: #333;
+            background: transparent;
+        }
+
+        .search-bar input::placeholder {
+            color: #aaa;
+        }
+
+        .search-bar .search-btn {
+            background: #f0f0f0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        /* Trending */
+        .trending {
+            max-width: 1200px;
+            margin: 10px auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .trending span {
+            color: #888;
+            font-size: 13px;
+        }
+
+        .trending a {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #555;
+            text-decoration: none;
+            border: 1px solid #e8ecf1;
+            transition: all 0.3s;
+        }
+
+        .trending a:hover {
+            border-color: #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        .trending .more-btn {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e8ecf1;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .stat-icon.blue { background: #e3f2fd; color: #1976d2; }
+        .stat-icon.green { background: #e8f5e9; color: #388e3c; }
+        .stat-icon.orange { background: #fff3e0; color: #f57c00; }
+        .stat-icon.purple { background: #f3e5f5; color: #7b1fa2; }
+
+        .stat-info h4 {
+            font-size: 13px;
+            color: #888;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .stat-info .value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .stat-info .change {
+            font-size: 12px;
+            color: #388e3c;
+            margin-top: 2px;
+        }
+
+        .stat-info .change .label {
+            color: #aaa;
+            margin-right: 4px;
+        }
+
+        /* BossX Price Card */
+        .price-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .price-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e8ecf1;
+        }
+
+        .price-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .price-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bossx-logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .price-left h3 {
+            font-size: 18px;
+            color: #1a1a2e;
+        }
+
+        .price-left .symbol {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .price-value {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .price-value .current {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .price-value .change {
+            background: #e8f5e9;
+            color: #388e3c;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .price-chart {
+            height: 80px;
+            margin-top: 16px;
+            position: relative;
+        }
+
+        .price-chart canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .market-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .market-item {
+            text-align: right;
+        }
+
+        .market-item .label {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .market-item .value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .supply-info {
+            margin-top: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .supply-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .supply-item .label {
+            font-size: 11px;
+            color: #aaa;
+        }
+
+        .supply-item .value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-top: 4px;
+        }
+
+        /* Ad Banner */
+        .ad-banner {
+            background: linear-gradient(135deg, #0d2818 0%, #1a4d2e 100%);
+            border-radius: 12px;
+            padding: 20px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #fff;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ad-banner::before {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .ad-banner .ad-text h3 {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .ad-banner .ad-text .amount {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4caf50;
+        }
+
+        .ad-banner .ad-text .token {
+            font-size: 16px;
+            color: #4caf50;
+        }
+
+        .ad-banner .ad-image {
+            font-size: 60px;
+        }
+
+        /* Section Header */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: 18px;
+            color: #1a1a2e;
+            font-weight: 700;
+        }
+
+        .section-header .more-link {
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .section-header .more-link:hover {
+            color: #ff6b6b;
+        }
+
+        /* Blocks Grid */
+        .blocks-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .block-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e8ecf1;
+            transition: transform 0.2s;
+        }
+
+        .block-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .block-number {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1976d2;
+            margin-bottom: 4px;
+        }
+
+        .block-time {
+            font-size: 11px;
+            color: #aaa;
+            margin-bottom: 8px;
+        }
+
+        .block-proposer {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .proposer-badge {
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #555;
+        }
+
+        .block-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .block-stat {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .block-stat .icon {
+            font-size: 14px;
+        }
+
+        .block-stat .value {
+            font-weight: 600;
+        }
+
+        .block-stat .value.orange { color: #f57c00; }
+        .block-stat .value.blue { color: #1976d2; }
+
+        /* Transactions Section */
+        .transactions-section {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .tx-list {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e8ecf1;
+        }
+
+        .tx-item {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 13px;
+            align-items: center;
+        }
+
+        .tx-item:last-child {
+            border-bottom: none;
+        }
+
+        .tx-hash {
+            color: #1976d2;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .tx-hash .time {
+            color: #aaa;
+            font-size: 11px;
+            font-weight: 400;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .tx-addresses {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .tx-addresses .from,
+        .tx-addresses .to {
+            margin-bottom: 2px;
+        }
+
+        .tx-addresses .label {
+            color: #aaa;
+            display: inline-block;
+            width: 30px;
+        }
+
+        .tx-value {
+            text-align: right;
+        }
+
+        .tx-value .amount {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .tx-value .type {
+            font-size: 11px;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 4px;
+        }
+
+        /* Chart */
+        .tx-chart {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e8ecf1;
+        }
+
+        .chart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 16px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.blue { background: #1976d2; }
+        .legend-dot.red { background: #e53935; }
+        .legend-dot.green { background: #43a047; }
+
+        .chart-area {
+            height: 200px;
+            position: relative;
+            border-left: 1px solid #e8ecf1;
+            border-bottom: 1px solid #e8ecf1;
+            padding: 10px 0;
+        }
+
+        .chart-y-labels {
+            position: absolute;
+            left: -35px;
+            top: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 10px;
+            color: #aaa;
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .chart-x-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 10px;
+            color: #aaa;
+        }
+
+        /* TVL Section */
+        .tvl-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e8ecf1;
+        }
+
+        .tvl-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .tvl-header h3 {
+            font-size: 16px;
+            color: #1a1a2e;
+        }
+
+        .tvl-header .active-tab {
+            color: #ff6b6b;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .tvl-header .inactive-tab {
+            color: #aaa;
+            cursor: pointer;
+        }
+
+        .tvl-total {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 20px;
+        }
+
+        .tvl-table {
+            width: 100%;
+        }
+
+        .tvl-table-header {
+            display: grid;
+            grid-template-columns: 100px 2fr 1fr 1fr 1fr 1fr;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 2px solid #e8ecf1;
+            font-size: 12px;
+            color: #888;
+            font-weight: 600;
+        }
+
+        .tvl-table-row {
+            display: grid;
+            grid-template-columns: 100px 2fr 1fr 1fr 1fr 1fr;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 13px;
+            align-items: center;
+        }
+
+        .tvl-table-row .rank {
+            color: #888;
+        }
+
+        .tvl-table-row .project {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .tvl-table-row .category {
+            color: #888;
+        }
+
+        .tvl-table-row .value {
+            font-weight: 600;
+        }
+
+        .tvl-table-row .change-pos { color: #388e3c; }
+        .tvl-table-row .change-neg { color: #e53935; }
+
+        /* Bottom Bar */
+        .bottom-info {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 20px;
+            font-size: 12px;
+            color: #888;
+        }
+
+        .bottom-info span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a2e;
+            color: #888;
+            padding: 30px 40px;
+            margin-top: 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-content a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        /* Sub-stats */
+        .sub-stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 12px;
+            padding: 12px 0;
+        }
+
+        .sub-stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .sub-stat .label {
+            color: #888;
+        }
+
+        .sub-stat .value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .blocks-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .transactions-section {
+                grid-template-columns: 1fr;
+            }
+            .price-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 12px 20px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .blocks-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <div class="logo">
+                <div class="logo-icon">B</div>
+                BossX<span>SCAN</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active">Home</a>
+                <a href="#">Blockchain</a>
+                <a href="#">Tokens</a>
+                <a href="#">Data</a>
+                <a href="#">Governance</a>
+                <a href="#">BossX Ecosystem</a>
+                <a href="#">Developers</a>
+                <a href="#">More</a>
+            </div>
+        </div>
+        <div class="navbar-right">
+            <a href="#">Register</a>
+            <a href="#">Log In</a>
+            <button class="btn-connect">Connect Wallet</button>
+        </div>
+    </nav>
+
+    <!-- Search Section -->
+    <div class="search-section">
+        <div class="search-bar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.35-4.35"></path>
+            </svg>
+            <input type="text" placeholder="Search by Token / Account / Contract / Transaction / Block">
+            <button class="search-btn">All ▾</button>
+        </div>
+    </div>
+
+    <!-- Trending -->
+    <div class="trending">
+        <span>Trending Search:</span>
+        <a href="#">🔥 USDT</a>
+        <a href="#">🐕 PEPE</a>
+        <a href="#">🌭 SUNDOG</a>
+        <a href="#"> GD</a>
+        <a href="#"> TBULL</a>
+        <a href="#">📊 PROS</a>
+        <a href="#">⚫ USDD</a>
+        <button class="more-btn">More ›</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon blue">👥</div>
+                <div class="stat-info">
+                    <h4>Total Accounts</h4>
+                    <div class="value">378,235,085</div>
+                    <div class="change"><span class="label">24h</span> +217,687</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon green">🔒</div>
+                <div class="stat-info">
+                    <h4>Total Value Locked</h4>
+                    <div class="value">$27,209,132,264</div>
+                    <div class="change"><span class="label">24h</span> +0.30%</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon orange">📝</div>
+                <div class="stat-info">
+                    <h4>Total Transactions</h4>
+                    <div class="value">13,796,487,168</div>
+                    <div class="change"><span class="label">24h</span> +9,774,127</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon purple">💰</div>
+                <div class="stat-info">
+                    <h4>Total Transfer Volume</h4>
+                    <div class="value">$26,419,909,866,513</div>
+                    <div class="change"><span class="label">24h</span> +$9,513,262,131</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sub Stats -->
+        <div class="sub-stats">
+            <div class="sub-stat">
+                <span class="label">Current/Max TPS</span>
+                <span class="value">132/1,035</span>
+            </div>
+            <div class="sub-stat">
+                <span class="label">Total Nodes</span>
+                <span class="value">7,713</span>
+            </div>
+            <div class="sub-stat">
+                <span class="label">Total Contracts</span>
+                <span class="value">3,486,790</span>
+            </div>
+            <div class="sub-stat">
+                <span class="label">Total Tokens</span>
+                <span class="value">190,187</span>
+            </div>
+        </div>
+
+        <!-- Price Section & Ad Banner -->
+        <div class="price-section" style="margin-top: 16px;">
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <!-- Ad Banner -->
+                <div class="ad-banner">
+                    <div class="ad-text">
+                        <h3>BANK OF AI Airdrop</h3>
+                        <div>Share</div>
+                        <div class="amount">5,000 USDT</div>
+                    </div>
+                    <div class="ad-image">🚀</div>
+                </div>
+
+                <!-- Price Card -->
+                <div class="price-card">
+                    <div class="price-header">
+                        <div class="price-left">
+                            <div class="bossx-logo">B</div>
+                            <div>
+                                <h3>BossX</h3>
+                                <div class="symbol">$0.3253</div>
+                            </div>
+                        </div>
+                        <div class="price-value">
+                            <span class="change">+0.43% ↑</span>
+                        </div>
+                    </div>
+
+                    <div class="market-info">
+                        <div class="market-item">
+                            <div class="label">Market Cap</div>
+                            <div class="value">$30.83b</div>
+                        </div>
+                        <div class="market-item">
+                            <div class="label">Volume (24h)</div>
+                            <div class="value">$585.04m</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 16px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-size: 12px; color: #888;">Total Supply (15d)</span>
+                            <span style="font-size: 12px; color: #388e3c;">+0.27%/y</span>
+                        </div>
+                        <div style="height: 40px; background: linear-gradient(180deg, #e3f2fd 0%, #fff 100%); border-radius: 4px; position: relative;">
+                            <svg width="100%" height="100%" viewBox="0 0 300 40">
+                                <polyline fill="none" stroke="#1976d2" stroke-width="2" points="0,30 30,28 60,26 90,25 120,22 150,20 180,18 210,15 240,12 270,10 300,8"/>
+                                <circle cx="300" cy="8" r="4" fill="#1976d2"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="supply-info">
+                        <div class="supply-item">
+                            <div class="label">Total Supply</div>
+                            <div class="value">94,784,038,201</div>
+                        </div>
+                        <div class="supply-item">
+                            <div class="label">Total Staked</div>
+                            <div class="value">46,431,024,535</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Price Chart Card -->
+            <div class="price-card">
+                <div style="margin-bottom: 16px;">
+                    <h3 style="font-size: 16px; color: #1a1a2e;">Transactions</h3>
+                </div>
+                <div class="chart-legend">
+                    <div class="legend-item"><div class="legend-dot blue"></div>Total Transactions</div>
+                    <div class="legend-item"><div class="legend-dot red"></div>BossX Transfers</div>
+                    <div class="legend-item"><div class="legend-dot green"></div>USDT Transfers</div>
+                </div>
+                <div class="chart-area" style="margin-top: 16px;">
+                    <svg class="chart-svg" viewBox="0 0 500 180">
+                        <!-- Grid lines -->
+                        <line x1="0" y1="0" x2="500" y2="0" stroke="#f0f0f0" stroke-width="1"/>
+                        <line x1="0" y1="45" x2="500" y2="45" stroke="#f0f0f0" stroke-width="1"/>
+                        <line x1="0" y1="90" x2="500" y2="90" stroke="#f0f0f0" stroke-width="1"/>
+                        <line x1="0" y1="135" x2="500" y2="135" stroke="#f0f0f0" stroke-width="1"/>
+                        <line x1="0" y1="180" x2="500" y2="180" stroke="#e8ecf1" stroke-width="1"/>
+
+                        <!-- Y-axis labels -->
+                        <text x="-5" y="4" fill="#aaa" font-size="10" text-anchor="end">15m</text>
+                        <text x="-5" y="49" fill="#aaa" font-size="10" text-anchor="end">10m</text>
+                        <text x="-5" y="94" fill="#aaa" font-size="10" text-anchor="end">5m</text>
+                        <text x="-5" y="139" fill="#aaa" font-size="10" text-anchor="end">0</text>
+
+                        <!-- Total Transactions (blue) -->
+                        <polyline fill="none" stroke="#1976d2" stroke-width="2" opacity="0.8"
+                            points="10,80 60,50 110,45 160,55 210,50 260,48 310,55 360,42 410,50 460,65"/>
+                        <polygon fill="#1976d2" opacity="0.05"
+                            points="10,80 60,50 110,45 160,55 210,50 260,48 310,55 360,42 410,50 460,65 460,180 10,180"/>
+
+                        <!-- BossX Transfers (red) -->
+                        <polyline fill="none" stroke="#e53935" stroke-width="1.5" opacity="0.6"
+                            points="10,140 60,120 110,115 160,125 210,118 260,122 310,128 360,110 410,115 460,125"/>
+
+                        <!-- USDT Transfers (green) -->
+                        <polyline fill="none" stroke="#43a047" stroke-width="1.5" opacity="0.6"
+                            points="10,155 60,145 110,140 160,148 210,142 260,145 310,150 360,138 410,142 460,150"/>
+                    </svg>
+                </div>
+                <div class="chart-x-labels">
+                    <span>04-13</span>
+                    <span>04-15</span>
+                    <span>04-17</span>
+                    <span>04-19</span>
+                    <span>04-21</span>
+                    <span>04-23</span>
+                    <span>04-25</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blocks Section -->
+        <div class="section-header">
+            <h2>Blocks</h2>
+            <a href="#" class="more-link">More ›</a>
+        </div>
+
+        <div class="blocks-grid">
+            <div class="block-card">
+                <div class="block-number">#82206669</div>
+                <div class="block-time">1 sec ago</div>
+                <div class="block-proposer">
+                    <span class="proposer-badge">Huobi_Wallet ›</span>
+                </div>
+                <div style="font-size: 12px; color: #666; margin-bottom: 8px;">396 Transactions</div>
+                <div class="block-stats">
+                    <div class="block-stat">
+                        <span class="icon"></span>
+                        <span class="value blue">8 BossX</span>
+                    </div>
+                    <div class="block-stat">
+                        <span class="icon">🔥</span>
+                        <span class="value orange">128 BossX</span>
+                    </div>
+                    <div class="block-stat">
+                        <span class="icon">⚡</span>
+                        <span class="value orange">128.6684 BossX</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-card">
+                <div class="block-number">#82206724</div>
+                <div class="block-time">4 secs ago</div>
+                <div class="block-proposer">
+                    <span class="proposer-badge">Binance Staking ›</span>
+                </div>
+                <div style="font-size: 12px; color: #666; margin-bottom: 8px;">494 Transactions</div>
+                <div class="block-stats">
+                    <div class="block-stat">
+                        <span class="icon">🟦</span>
+                        <span class="value blue">8 BossX</span>
+                    </div>
+                    <div class="block-stat">
+                        <span class="icon">🔥</span>
+                        <span class="value orange">128 BossX</span>
+                    </div>
+                    <div class="block-stat">
+                        <span class="icon">⚡</span>
+                        <span class="value orange">155.5021 BossX</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-card">
+                <div class="block-number">#82206723</div>
+                <div class="block-time">7 secs ago</div>
+                <div class="block-proposer">
+                    <span class="proposer-badge">BlockAnalysis ›</span>
+                </div>
+                <div style="font-size: 12px; color: #666; margin-bottom: 8px;">455 Transactions</div>
+                <div class="block-stats">
+                    <div class="block-stat">
+                        <span class="icon">🟦</span>
+                        <span class="value blue">8 BossX</span>
+                    </div>
+                    <div class="block-stat">
+                        <span class="icon">🔥</span>
+                        <span class="value orange">128 BossX</span>
+                    </div>
+                    <div class="block-stat">
+                        <span class="icon"></span>
+                        <span class="value orange">189.8963 BossX</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block-card">
+                <div class="block-number">#82206722</div>
+                <div class="block-time">10 secs ago</div>
+                <div class="block-proposer">
+                    <span class="proposer-badge">Crypto Labs ›</span>
+                </div>
+                <div style="font-size: 12px; color: #666; margin-bottom: 8px;">461 Transactions</div>
+                <div class="block-stats">
+                    <div class="block-stat">
+                        <span class="icon">🟦</span>
+                        <span class="value blue">8 BossX</span>
+                    </div>
+                    <div class="block-stat">
+                        <span class="icon">🔥</span>
+                        <span class="value orange">128 BossX</span>
+                    </div>
+                    <div class="block-stat">
+                        <span class="icon">⚡</span>
+                        <span class="value orange">101.4567 BossX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transactions Section -->
+        <div class="section-header">
+            <h2>Transactions</h2>
+            <a href="#" class="more-link">More ›</a>
+        </div>
+
+        <div class="transactions-section">
+            <div class="tx-list">
+                <div class="tx-item">
+                    <div class="tx-hash">
+                        cd1293a8e...f49da
+                        <span class="time">5 secs ago</span>
+                    </div>
+                    <div class="tx-addresses">
+                        <div class="from"><span class="label">From</span> TMCRaFW3rjEHB6p4n3ki5VjqwaeYxbYoKw</div>
+                        <div class="to"><span class="label">To</span> TQgfejwaBjtsuLBhknuyjzMshr7b7Qm7D</div>
+                    </div>
+                    <div class="tx-value">
+                        <div class="amount">2FreeG...</div>
+                        <span class="type">Transfer TRC10</span>
+                    </div>
+                </div>
+
+                <div class="tx-item">
+                    <div class="tx-hash">
+                        fe2bdaac4c...204ce
+                        <span class="time">10 secs ago</span>
+                    </div>
+                    <div class="tx-addresses">
+                        <div class="from"><span class="label">From</span> TE7XBp7HEJPdQgcmmgmdR3i71aQ8TheED5</div>
+                        <div class="to"><span class="label">To</span> 5C</div>
+                    </div>
+                    <div class="tx-value">
+                        <div class="amount">0 BossX</div>
+                        <span class="type">USDT Token Transfer</span>
+                    </div>
+                </div>
+
+                <div class="tx-item">
+                    <div class="tx-hash">
+                        51754c81...a0172
+                        <span class="time">4 secs ago</span>
+                    </div>
+                    <div class="tx-addresses">
+                        <div class="from"><span class="label">From</span> TUSYcK5yf8Et4xNTlUcpfZwmhFsxfdo0oo</div>
+                        <div class="to"><span class="label">To</span> TEA3RZ7mmwFscUNKiEAjnfn7upBPQceZXW</div>
+                    </div>
+                    <div class="tx-value">
+                        <div class="amount">0.8 BossX</div>
+                        <span class="type">Transfer BossX</span>
+                    </div>
+                </div>
+
+                <div class="tx-item">
+                    <div class="tx-hash">
+                        3c348d44...f921c
+                        <span class="time">5 secs ago</span>
+                    </div>
+                    <div class="tx-addresses">
+                        <div class="from"><span class="label">From</span> TQztwRv3r2hYLeNgpX3oMM9tH7XiAjAjH</div>
+                        <div class="to"><span class="label">To</span> TYeVoAcQKbgjxzQPj8uaoEaReuWVNSdu96</div>
+                    </div>
+                    <div class="tx-value">
+                        <div class="amount">24.8682 BossX</div>
+                        <span class="type">Transfer BossX</span>
+                    </div>
+                </div>
+
+                <div class="tx-item">
+                    <div class="tx-hash">
+                        bc958f185...8a762
+                        <span class="time">15 secs ago</span>
+                    </div>
+                    <div class="tx-addresses">
+                        <div class="from"><span class="label">From</span> TBXm95JNNLYJACET3PhcLkhmiq5BZE7G1w</div>
+                        <div class="to"><span class="label">To</span> TNRqNe6AeR3NNuMu22WwuyrVdQC8uEHcBK</div>
+                    </div>
+                    <div class="tx-value">
+                        <div class="amount">3 BossX</div>
+                        <span class="type">Transfer BossX</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tx-chart">
+                <div class="chart-header">
+                    <h3 style="font-size: 14px; color: #1a1a2e;">Transactions</h3>
+                    <div class="chart-legend">
+                        <div class="legend-item"><div class="legend-dot blue"></div>Total Transactions</div>
+                        <div class="legend-item"><div class="legend-dot red"></div>BossX Transfers</div>
+                        <div class="legend-item"><div class="legend-dot green"></div>USDT Transfers</div>
+                    </div>
+                </div>
+                <div class="chart-area">
+                    <svg class="chart-svg" viewBox="0 0 500 180">
+                        <line x1="0" y1="0" x2="500" y2="0" stroke="#f0f0f0" stroke-width="1"/>
+                        <line x1="0" y1="45" x2="500" y2="45" stroke="#f0f0f0" stroke-width="1"/>
+                        <line x1="0" y1="90" x2="500" y2="90" stroke="#f0f0f0" stroke-width="1"/>
+                        <line x1="0" y1="135" x2="500" y2="135" stroke="#f0f0f0" stroke-width="1"/>
+                        <line x1="0" y1="180" x2="500" y2="180" stroke="#e8ecf1" stroke-width="1"/>
+
+                        <text x="-5" y="4" fill="#aaa" font-size="10" text-anchor="end">15m</text>
+                        <text x="-5" y="49" fill="#aaa" font-size="10" text-anchor="end">10m</text>
+                        <text x="-5" y="94" fill="#aaa" font-size="10" text-anchor="end">5m</text>
+                        <text x="-5" y="139" fill="#aaa" font-size="10" text-anchor="end">0</text>
+
+                        <polyline fill="none" stroke="#1976d2" stroke-width="2" opacity="0.8"
+                            points="10,80 60,50 110,45 160,55 210,50 260,48 310,55 360,42 410,50 460,65"/>
+                        <polygon fill="#1976d2" opacity="0.05"
+                            points="10,80 60,50 110,45 160,55 210,50 260,48 310,55 360,42 410,50 460,65 460,180 10,180"/>
+
+                        <polyline fill="none" stroke="#e53935" stroke-width="1.5" opacity="0.6"
+                            points="10,140 60,120 110,115 160,125 210,118 260,122 310,128 360,110 410,115 460,125"/>
+
+                        <polyline fill="none" stroke="#43a047" stroke-width="1.5" opacity="0.6"
+                            points="10,155 60,145 110,140 160,148 210,142 260,145 310,150 360,138 410,142 460,150"/>
+                    </svg>
+                </div>
+                <div class="chart-x-labels">
+                    <span>04-13</span>
+                    <span>04-15</span>
+                    <span>04-17</span>
+                    <span>04-19</span>
+                    <span>04-21</span>
+                    <span>04-23</span>
+                    <span>04-25</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- TVL Section -->
+        <div class="section-header">
+            <h2>Total Value Locked / Total Value on Chain</h2>
+            <div style="display: flex; gap: 16px; align-items: center;">
+                <span style="cursor: pointer; color: #ff6b6b; font-weight: 600;">Submit Project</span>
+                <a href="#" class="more-link">More ›</a>
+            </div>
+        </div>
+
+        <div class="tvl-section">
+            <div class="tvl-total">$27,209,132,264</div>
+            <div class="tvl-table-header">
+                <span>Rank</span>
+                <span>Project</span>
+                <span>Category</span>
+                <span>Total Value Locked</span>
+                <span>Change (24h)</span>
+                <span>Share</span>
+            </div>
+            <div class="tvl-table-row">
+                <span class="rank">#1</span>
+                <span class="project">🔷 JustLend</span>
+                <span class="category">Lending</span>
+                <span class="value">$8,234,567,890</span>
+                <span class="change-pos">+2.34%</span>
+                <span>30.26%</span>
+            </div>
+            <div class="tvl-table-row">
+                <span class="rank">#2</span>
+                <span class="project">🔵 SunSwap</span>
+                <span class="category">DEX</span>
+                <span class="value">$5,123,456,789</span>
+                <span class="change-pos">+1.56%</span>
+                <span>18.83%</span>
+            </div>
+            <div class="tvl-table-row">
+                <span class="rank">#3</span>
+                <span class="project">🟣 WinK</span>
+                <span class="category">Gaming</span>
+                <span class="value">$3,456,789,012</span>
+                <span class="change-neg">-0.89%</span>
+                <span>12.71%</span>
+            </div>
+            <div class="tvl-table-row">
+                <span class="rank">#4</span>
+                <span class="project">🟡 APENFT</span>
+                <span class="category">NFT</span>
+                <span class="value">$2,345,678,901</span>
+                <span class="change-pos">+3.21%</span>
+                <span>8.62%</span>
+            </div>
+            <div class="tvl-table-row">
+                <span class="rank">#5</span>
+                <span class="project">🔴 BossXStable</span>
+                <span class="category">Stablecoin</span>
+                <span class="value">$1,987,654,321</span>
+                <span class="change-pos">+0.45%</span>
+                <span>7.31%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <span>© 2025 BossXSCAN. All rights reserved.</span>
+            <div style="display: flex; gap: 20px;">
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">API</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
